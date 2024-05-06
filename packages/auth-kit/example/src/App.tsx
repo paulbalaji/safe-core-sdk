@@ -35,8 +35,8 @@ function App() {
         enableLogging: true,
         buildEnv: 'production',
         chainConfig: {
-          chainId: chainId || '0x64',
-          rpcTarget: 'https://gnosis.drpc.org'
+          chainId: chainId || '0xaa36a7',
+          rpcTarget: 'https://ethereum-sepolia-rpc.publicnode.com	'
         }
       }
 

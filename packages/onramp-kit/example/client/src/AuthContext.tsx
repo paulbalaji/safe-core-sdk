@@ -37,7 +37,6 @@ const AuthProvider = ({ children }: AuthContextProviderProps) => {
 
       const options: SafeAuthInitOptions = {
         enableLogging: true,
-        showWidgetButton: false,
         chainConfig: { chainId: '0xaa36a7', rpcTarget: 'https://rpc.ankr.com/eth_sepolia' }
       }
 
