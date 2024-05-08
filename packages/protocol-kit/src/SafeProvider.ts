@@ -22,6 +22,7 @@ import {
   getMultiSendContractInstance,
   getSafeContractInstance,
   getSafeProxyFactoryContractInstance,
+  getSafeWebAuthnSignerFactoryContractInstance,
   getSignMessageLibContractInstance,
   getSimulateTxAccessorContractInstance
 } from './contracts/contractInstances'
@@ -33,10 +34,11 @@ import {
   HttpTransport,
   SocketTransport
 } from '@safe-global/protocol-kit/types'
+import PasskeySigner from './utils/passkeys/PasskeySigner'
 
 class SafeProvider {
   #externalProvider: BrowserProvider | JsonRpcProvider
-  signer?: string
+  signer?: string | PasskeySigner
   provider: Eip1193Provider | HttpTransport | SocketTransport
 
   constructor({ provider, signer }: SafeProviderConfig) {
@@ -55,14 +57,20 @@ class SafeProvider {
   }
 
   async getExternalSigner(): Promise<AbstractSigner | undefined> {
-    // If the signer is not an Ethereum address, it should be a private key
-    if (this.signer && !ethers.isAddress(this.signer)) {
-      const privateKeySigner = new ethers.Wallet(this.signer, this.#externalProvider)
-      return privateKeySigner
-    }
+    if (typeof this.signer === 'string') {
+      // If the signer is not an Ethereum address, it should be a private key
+      if (this.signer && !ethers.isAddress(this.signer)) {
+        const privateKeySigner = new ethers.Wallet(this.signer, this.#externalProvider)
+        return privateKeySigner
+      }
 
-    if (this.signer) {
-      return this.#externalProvider.getSigner(this.signer)
+      if (this.signer) {
+        return this.#externalProvider.getSigner(this.signer)
+      }
+    } else {
+      if (this.signer) {
+        return this.signer
+      }
     }
 
     if (this.#externalProvider instanceof BrowserProvider) {
@@ -70,6 +78,13 @@ class SafeProvider {
     }
 
     return undefined
+  }
+
+  // TODO: review this
+  async isPasskeySigner(): Promise<boolean> {
+    const signer = (await this.getExternalSigner()) as PasskeySigner
+
+    return signer && !!signer.passkeyRawId
   }
 
   isAddress(address: string): boolean {
@@ -193,6 +208,19 @@ class SafeProvider {
     customContractAbi
   }: GetContractProps) {
     return getSimulateTxAccessorContractInstance(
+      safeVersion,
+      this,
+      customContractAddress,
+      customContractAbi
+    )
+  }
+
+  async getSafeWebAuthnSignerFactoryContract({
+    safeVersion,
+    customContractAddress,
+    customContractAbi
+  }: GetContractProps) {
+    return getSafeWebAuthnSignerFactoryContractInstance(
       safeVersion,
       this,
       customContractAddress,
