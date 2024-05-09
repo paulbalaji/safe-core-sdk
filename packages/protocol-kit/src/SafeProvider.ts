@@ -80,7 +80,6 @@ class SafeProvider {
     return undefined
   }
 
-  // TODO: review this
   async isPasskeySigner(): Promise<boolean> {
     const signer = (await this.getExternalSigner()) as PasskeySigner
 
