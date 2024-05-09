@@ -32,3 +32,8 @@ export type SafeProviderTransaction = {
   maxFeePerGas?: number | string
   maxPriorityFeePerGas?: number | string
 }
+
+export type SafeModulesPaginated = {
+  modules: string[]
+  next: string
+}

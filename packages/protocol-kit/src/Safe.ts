@@ -39,7 +39,8 @@ import {
   SigningMethod,
   SigningMethodType,
   SwapOwnerTxParams,
-  passkeyArgType
+  passkeyArgType,
+  SafeModulesPaginated
 } from './types'
 import {
   EthSafeSignature,
@@ -440,7 +441,7 @@ class Safe {
    * @param pageSize - The size of the page. It will be the max length of the returning array. Must be greater then 0.
    * @returns The list of addresses of all the enabled Safe modules
    */
-  async getModulesPaginated(start: string, pageSize: number = 10): Promise<string[]> {
+  async getModulesPaginated(start: string, pageSize: number = 10): Promise<SafeModulesPaginated> {
     return this.#moduleManager.getModulesPaginated(start, pageSize)
   }
 
