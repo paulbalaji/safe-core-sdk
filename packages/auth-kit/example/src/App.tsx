@@ -50,7 +50,7 @@ function App() {
 
       authPack.subscribe('accountsChanged', async (accounts) => {
         console.log('safeAuthPack:accountsChanged', accounts, authPack.isAuthenticated)
-        if (authPack.isAuthenticated) {
+        if (accounts.length > 0) {
           const signInInfo = await authPack?.signIn()
 
           setSafeAuthSignInResponse(signInInfo)

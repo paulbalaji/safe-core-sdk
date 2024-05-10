@@ -16,7 +16,7 @@ import {
 import type { AuthKitSignInData } from '@safe-global/auth-kit/types'
 import { CHAIN_CONFIG } from './constants'
 
-const SAFE_WALLET_SERVICES_URL = 'https://staging-safe.web3auth.com/v1'
+const SAFE_WALLET_SERVICES_URL = 'https://staging-safe.web3auth.com/v2'
 const WS_EMBED_NOT_INITIALIZED = 'SafeEmbed SDK is not initialized'
 
 /**

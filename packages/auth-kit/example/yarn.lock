@@ -997,7 +997,7 @@
   dependencies:
     "@safe-global/api-kit" "^2.3.0"
     "@safe-global/protocol-kit" "3.1.0-alpha.0"
-    "@web3auth/safeauth-embed" "file:../../../../../Library/Caches/Yarn/v6/npm-@safe-global-auth-kit-2.0.3-c214bca2-e0d6-49ea-8a84-2c3ff1e4f3a6-1714722929171/node_modules/@safe-global/auth-kit/.yalc/@web3auth/safeauth-embed"
+    "@web3auth/safeauth-embed" "file:../../../../../Library/Caches/Yarn/v6/npm-@safe-global-auth-kit-2.0.3-778504ba-3aa5-425c-9202-52a5cfa5bef3-1715331099418/node_modules/@safe-global/auth-kit/.yalc/@web3auth/safeauth-embed"
     ethers "^6.7.1"
 
 "@safe-global/protocol-kit@3.1.0-alpha.0":
@@ -1142,7 +1142,7 @@
   dependencies:
     defer-to-connect "^2.0.1"
 
-"@toruslabs/base-controllers@^5.5.5", "@toruslabs/base-controllers@^5.6.0":
+"@toruslabs/base-controllers@^5.6.0":
   version "5.6.0"
   resolved "https://registry.yarnpkg.com/@toruslabs/base-controllers/-/base-controllers-5.6.0.tgz#9255379e86c447e315c8b6a7dd8d413872b3307c"
   integrity sha512-0pXjN3zIFlPS7DCuSVqnb4+CSKFkjSCY62qiJ61nKKmfFyECJP8ZerxUofn4IylBJ5AbHtPi8ikvtN58wLXcQA==
@@ -1184,10 +1184,10 @@
   dependencies:
     elliptic "^6.5.4"
 
-"@toruslabs/ethereum-controllers@^5.5.5":
-  version "5.6.0"
-  resolved "https://registry.yarnpkg.com/@toruslabs/ethereum-controllers/-/ethereum-controllers-5.6.0.tgz#483486c6ba532bcd310373e2c9cc7e7038d01eaf"
-  integrity sha512-pj/xRZGaF1nVRDQPj+qTIKwfVrz3Erkwb6RtmwGcxpggVnLH4sR5uN+kxpAm4jSg4JleA+eSBkpenSw5z578MQ==
+"@toruslabs/ethereum-controllers@^5.6.1":
+  version "5.6.2"
+  resolved "https://registry.yarnpkg.com/@toruslabs/ethereum-controllers/-/ethereum-controllers-5.6.2.tgz#396350eaf45fecef6a0695c1f134e734afe3591f"
+  integrity sha512-ECAll9hA7NRZ4KxYkhZr+3j7lwIvDM0zn8z3u7xS9qpoR+rtUy3OgU/AQo0YksLp40GyRUuXr5zixsYnHClrCw==
   dependencies:
     "@ethereumjs/common" "^4.3.0"
     "@ethereumjs/tx" "^5.3.0"
@@ -1375,16 +1375,21 @@
 "@web3auth/safeauth-embed@file:../.yalc/@web3auth/safeauth-embed":
   version "0.0.4"
   dependencies:
-    "@web3auth/ws-embed" "^1.1.1"
+    "@web3auth/ws-embed" "^2.0.0"
 
-"@web3auth/ws-embed@^1.1.1":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@web3auth/ws-embed/-/ws-embed-1.2.0.tgz#db6ab3c82d9df65a8930bdbd1344da190c7522d7"
-  integrity sha512-8VuFCfklroBEwZelRZfyO/kdB9xjCr2x7jOeTFfjgZA0fX10/z9XzS4FUgjFn4TqL6LwoNLkybqHNoQVza4VPg==
+"@web3auth/safeauth-embed@file:.yalc/@web3auth/safeauth-embed":
+  version "0.0.4"
+  dependencies:
+    "@web3auth/ws-embed" "^2.0.0"
+
+"@web3auth/ws-embed@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@web3auth/ws-embed/-/ws-embed-2.0.0.tgz#06e0f8907a3a1e01b650ba0123e953baed449feb"
+  integrity sha512-H48vik0JSOJt9uyrxCNr2j9r+w20r1x8uJ03UaZ8xqOiAOpO9LMQzwHFmvDsSzUWIuPq+K2etoQZ8pZPCelldA==
   dependencies:
     "@metamask/rpc-errors" "^6.2.1"
-    "@toruslabs/base-controllers" "^5.5.5"
-    "@toruslabs/ethereum-controllers" "^5.5.5"
+    "@toruslabs/base-controllers" "^5.6.0"
+    "@toruslabs/ethereum-controllers" "^5.6.1"
     "@toruslabs/openlogin-jrpc" "^8.1.1"
     "@toruslabs/openlogin-utils" "^8.1.0"
     fast-deep-equal "^3.1.3"
