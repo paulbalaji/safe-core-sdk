@@ -872,6 +872,18 @@ const txResponse = await safeSdk.executeTransaction(safeTransaction)
 await txResponse.transactionResponse?.wait()
 ```
 
+This method can optionally receive a passkey parameter:
+
+```js
+const params: AddPasskeyOwnerTxParams = {
+  passkey,
+  threshold // Optional. If `threshold` is not provided the current threshold will not change.
+}
+const safeTransaction = await safeSdk.createAddOwnerTx(params)
+const txResponse = await safeSdk.executeTransaction(safeTransaction)
+await txResponse.transactionResponse?.wait()
+```
+
 This method can optionally receive the `options` parameter:
 
 ```js
