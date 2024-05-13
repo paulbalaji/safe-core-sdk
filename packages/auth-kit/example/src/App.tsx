@@ -33,10 +33,13 @@ function App() {
     ;(async () => {
       const options: SafeAuthInitOptions = {
         enableLogging: true,
-        buildEnv: 'production',
         chainConfig: {
           chainId: chainId || '0xaa36a7',
           rpcTarget: 'https://ethereum-sepolia-rpc.publicnode.com	'
+        },
+        web3AuthConfig: {
+          web3AuthClientId: import.meta.env.VITE_WEB3AUTH_CLIENT_ID,
+          web3AuthNetwork: 'sapphire_mainnet'
         }
       }
 
