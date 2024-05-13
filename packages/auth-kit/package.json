@@ -42,7 +42,7 @@
   "dependencies": {
     "@safe-global/api-kit": "^2.3.0",
     "@safe-global/protocol-kit": "3.1.0-alpha.0",
-    "@web3auth/safeauth-embed": "file:.yalc/@web3auth/safeauth-embed",
+    "@web3auth/safeauth-embed": "^2.0.3",
     "ethers": "^6.7.1"
   }
 }

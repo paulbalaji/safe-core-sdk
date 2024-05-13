@@ -16,7 +16,6 @@ import {
 import type { AuthKitSignInData } from '@safe-global/auth-kit/types'
 import { CHAIN_CONFIG } from './constants'
 
-const SAFE_WALLET_SERVICES_URL = 'https://staging-safe.web3auth.com/v2'
 const WS_EMBED_NOT_INITIALIZED = 'SafeEmbed SDK is not initialized'
 
 /**
@@ -54,22 +53,21 @@ export class SafeAuthPack extends AuthKitBasePack {
    */
   async init(options: SafeAuthInitOptions) {
     try {
-      this.safeAuthEmbed = new SafeAuthEmbed()
+      const { web3AuthConfig, ...initOptions } = options
+
+      this.safeAuthEmbed = new SafeAuthEmbed(web3AuthConfig)
 
       const chainConfig =
-        options.chainConfig &&
+        initOptions.chainConfig &&
         ({
-          ...CHAIN_CONFIG[options.chainConfig.chainId],
-          chainId: options.chainConfig?.chainId,
-          rpcTarget: options.chainConfig?.rpcTarget
+          ...CHAIN_CONFIG[initOptions.chainConfig.chainId],
+          chainId: initOptions.chainConfig?.chainId,
+          rpcTarget: initOptions.chainConfig?.rpcTarget
         } as WsEmbedParams['chainConfig'])
 
       await this.safeAuthEmbed.init({
-        ...options,
-        chainConfig,
-        walletUrls: {
-          production: { url: SAFE_WALLET_SERVICES_URL, logLevel: 'error' }
-        }
+        ...initOptions,
+        chainConfig
       })
 
       this.#provider = this.safeAuthEmbed.provider

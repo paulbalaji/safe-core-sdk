@@ -76,7 +76,7 @@ describe('SafeAuthPack', () => {
             rpcTarget: 'https://rpc.xdaichain.com'
           },
           enableLogging: true,
-          walletUrls: { production: { logLevel: 'error', url: 'https://safe.web3auth.com' } }
+          walletUrls: { production: { logLevel: 'error', url: 'https://safe.web3auth.com/v2' } }
         })
       )
     })
