@@ -39,7 +39,11 @@ jest.mock('@web3auth/safeauth-embed', () => {
 
 const safeAuthInitOptions: SafeAuthInitOptions = {
   enableLogging: true,
-  chainConfig: { rpcTarget: 'https://rpc.xdaichain.com', chainId: '0x64' }
+  chainConfig: { rpcTarget: 'https://rpc.xdaichain.com', chainId: '0x64' },
+  web3AuthConfig: {
+    web3AuthClientId: 'web3AuthClientId',
+    web3AuthNetwork: 'mainnet'
+  }
 }
 
 describe('SafeAuthPack', () => {
