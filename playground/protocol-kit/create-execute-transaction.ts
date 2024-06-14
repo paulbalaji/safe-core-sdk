@@ -18,14 +18,14 @@ interface Config {
 }
 
 const config: Config = {
-  RPC_URL: 'https://rpc.ankr.com/eth_sepolia',
+  RPC_URL: 'https://sepolia.gateway.tenderly.co',
   SIGNER_ADDRESS_PRIVATE_KEY: SIGNER_ADDRESS_PRIVATE_KEY!,
   SAFE_ADDRESS: '<SAFE_ADDRESS>'
 }
 
 async function main() {
   // Create Safe instance
-  const safe = await Safe.create({
+  const safe = await Safe.init({
     provider: config.RPC_URL,
     signer: config.SIGNER_ADDRESS_PRIVATE_KEY,
     safeAddress: config.SAFE_ADDRESS

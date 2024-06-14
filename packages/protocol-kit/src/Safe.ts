@@ -37,7 +37,8 @@ import {
   SafeConfigProps,
   SigningMethod,
   SigningMethodType,
-  SwapOwnerTxParams
+  SwapOwnerTxParams,
+  SafeModulesPaginated
 } from './types'
 import {
   EthSafeSignature,
@@ -96,10 +97,10 @@ class Safe {
    * @throws "MultiSend contract is not deployed on the current network"
    * @throws "MultiSendCallOnly contract is not deployed on the current network"
    */
-  static async create(config: SafeConfig): Promise<Safe> {
-    const safeSdk = new Safe()
-    await safeSdk.init(config)
-    return safeSdk
+  static async init(config: SafeConfig): Promise<Safe> {
+    const protocolKit = new Safe()
+    await protocolKit.#initializeProtocolKit(config)
+    return protocolKit
   }
 
   /**
@@ -110,7 +111,7 @@ class Safe {
    * @throws "MultiSend contract is not deployed on the current network"
    * @throws "MultiSendCallOnly contract is not deployed on the current network"
    */
-  private async init(config: SafeConfig): Promise<void> {
+  async #initializeProtocolKit(config: SafeConfig) {
     const { provider, signer, isL1SafeSingleton, contractNetworks } = config
 
     this.#safeProvider = new SafeProvider({
@@ -119,7 +120,7 @@ class Safe {
     })
     if (isSafeConfigWithPredictedSafe(config)) {
       this.#predictedSafe = config.predictedSafe
-      this.#contractManager = await ContractManager.create(
+      this.#contractManager = await ContractManager.init(
         {
           provider,
           predictedSafe: this.#predictedSafe,
@@ -129,7 +130,7 @@ class Safe {
         this.#safeProvider
       )
     } else {
-      this.#contractManager = await ContractManager.create(
+      this.#contractManager = await ContractManager.init(
         {
           provider,
           safeAddress: config.safeAddress,
@@ -169,7 +170,7 @@ class Safe {
 
     // A new existing Safe is connected to the Signer
     if (safeAddress) {
-      return await Safe.create({
+      return await Safe.init({
         safeAddress,
         ...configProps
       })
@@ -177,7 +178,7 @@ class Safe {
 
     // A new predicted Safe is connected to the Signer
     if (predictedSafe) {
-      return await Safe.create({
+      return await Safe.init({
         predictedSafe,
         ...configProps
       })
@@ -185,14 +186,14 @@ class Safe {
 
     // The previous predicted Safe is connected to a new Signer
     if (this.#predictedSafe) {
-      return await Safe.create({
+      return await Safe.init({
         predictedSafe: this.#predictedSafe,
         ...configProps
       })
     }
 
     // The previous existing Safe is connected to a new Signer
-    return await Safe.create({
+    return await Safe.init({
       safeAddress: await this.getAddress(),
       ...configProps
     })
@@ -406,7 +407,7 @@ class Safe {
    * @param pageSize - The size of the page. It will be the max length of the returning array. Must be greater then 0.
    * @returns The list of addresses of all the enabled Safe modules
    */
-  async getModulesPaginated(start: string, pageSize: number = 10): Promise<string[]> {
+  async getModulesPaginated(start: string, pageSize: number = 10): Promise<SafeModulesPaginated> {
     return this.#moduleManager.getModulesPaginated(start, pageSize)
   }
 
@@ -1444,7 +1445,7 @@ class Safe {
    *
    * @returns The fallback Handler contract
    */
-  private async getFallbackHandlerContract(): Promise<CompatibilityFallbackHandlerContractType> {
+  async #getFallbackHandlerContract(): Promise<CompatibilityFallbackHandlerContractType> {
     if (!this.#contractManager.safeContract) {
       throw new Error('Safe is not deployed')
     }
@@ -1493,7 +1494,7 @@ class Safe {
     signature: SafeSignature[] | string = '0x'
   ): Promise<boolean> => {
     const safeAddress = await this.getAddress()
-    const fallbackHandler = await this.getFallbackHandlerContract()
+    const fallbackHandler = await this.#getFallbackHandlerContract()
 
     const signatureToCheck =
       signature && Array.isArray(signature) ? buildSignatureBytes(signature) : signature

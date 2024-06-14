@@ -15,7 +15,7 @@ interface Config {
 }
 
 const config: Config = {
-  RPC_URL: 'https://rpc.ankr.com/eth_sepolia',
+  RPC_URL: 'https://sepolia.gateway.tenderly.co',
   DEPLOYER_ADDRESS_PRIVATE_KEY: '<DEPLOYER_ADDRESS_PRIVATE_KEY>',
   DEPLOY_SAFE: {
     OWNERS: ['OWNER_ADDRESS'],
@@ -31,7 +31,7 @@ async function main() {
   console.log('safe config: ', config.DEPLOY_SAFE)
 
   // Create SafeFactory instance
-  const safeFactory = await SafeFactory.create({
+  const safeFactory = await SafeFactory.init({
     provider: config.RPC_URL,
     signer: config.DEPLOYER_ADDRESS_PRIVATE_KEY,
     safeVersion
