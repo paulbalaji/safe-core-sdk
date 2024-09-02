@@ -8,7 +8,7 @@ import {
   SafeProxyFactoryBaseContract,
   SignMessageLibBaseContract
 } from './contracts'
-import { DEFAULT_SAFE_VERSION } from './contracts/config'
+import { DEFAULT_SAFE_VERSION, safeDeploymentsVersions } from './contracts/config'
 import {
   getCompatibilityFallbackHandlerContract,
   getCreateCallContract,
@@ -81,6 +81,7 @@ export {
   CreateCallBaseContract,
   createERC20TokenTransferTransaction,
   DEFAULT_SAFE_VERSION,
+  safeDeploymentsVersions,
   EthSafeSignature,
   MultiSendCallOnlyBaseContract,
   MultiSendBaseContract,
